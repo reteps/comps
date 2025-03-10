@@ -10,8 +10,7 @@ services:
     network_mode: "service:wg_client"
   wg1:
     privileged: true
-    build:
-      context: ./quic_boringtun_docker
+    image: reteps/boringtun-docker
     container_name: wg1
     cap_add:
       - NET_ADMIN
@@ -38,8 +37,7 @@ services:
 
   wg2:
     privileged: true
-    build:
-      context: ./quic_boringtun_docker
+    image: reteps/boringtun-docker
     container_name: wg2
     cap_add:
       - NET_ADMIN
@@ -66,8 +64,7 @@ services:
 
   wg_client:
     privileged: true
-    build:
-      context: ./quic_boringtun_docker
+    image: reteps/boringtun-docker
     container_name: wg_client
     ports:
       - "4444:4444"
