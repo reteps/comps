@@ -18,7 +18,7 @@ if [ ! -f "/site/tls/leaf_cert.pem" ]; then
         # ./generate-certs.sh
         cp /src/net/tools/quic/certs/out/leaf_cert.pem /site/tls/
         cp /src/net/tools/quic/certs/out/leaf_cert.pkcs8 /site/tls/
-        # cd -
+        cd -
 fi
 
 set -x
