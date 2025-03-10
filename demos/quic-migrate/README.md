@@ -35,7 +35,7 @@ To download and apply the patches, run:
 ./chromium-setup.sh
 ```
 
-Then once `$CHROMIUM_SRC_DIR` is set, you can run 
+Then once `$CHROMIUM_BIN_DIR` is set, you can run 
 ```
 docker-compose build && docker-compose up
 ```

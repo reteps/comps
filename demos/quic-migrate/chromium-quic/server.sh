@@ -1,23 +1,24 @@
 #!/bin/bash
 
 if [ ! -f "/src/out/Debug/quic_server" ]; then
-        echo "Building quic_server..."
-        cd /src/src
+        echo "Missing quic_server..."
+        exit 1
+        # cd /src/src
 
-        set -e
-        set -x
-        gclient runhooks
-        gn gen out/Debug
-        ninja -C out/Debug quic_server
-        set +x
+        # set -e
+        # set -x
+        # gclient runhooks
+        # gn gen out/Debug
+        # ninja -C out/Debug quic_server
+        # set +x
 fi
 
 if [ ! -f "/site/tls/leaf_cert.pem" ]; then
         cd /src/net/tools/quic/certs
-        ./generate-certs.sh
+        # ./generate-certs.sh
         cp /src/net/tools/quic/certs/out/leaf_cert.pem /site/tls/
         cp /src/net/tools/quic/certs/out/leaf_cert.pkcs8 /site/tls/
-        cd -
+        # cd -
 fi
 
 set -x
