@@ -859,7 +859,7 @@ def install_packages(options):
     if packages:
       quiet = ["-qq", "--assume-yes"] if options.no_prompt else []
       # !!!!!! modified
-      subprocess.check_call(["sudo", "apt-get", "install"] + quiet + packages, env={**os.environ, "DEBIAN_FRONTEND": "noninteractive"})
+      subprocess.check_call(["sudo", "DEBIAN_FRONTEND=noninteractive", "apt-get", "install"] + quiet + packages, env={**os.environ, "DEBIAN_FRONTEND": "noninteractive"})
       print(file=sys.stderr)
     else:
       print("No missing packages, and the packages are up to date.",

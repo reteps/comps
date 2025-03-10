@@ -1,7 +1,7 @@
 FROM ubuntu:jammy
 
 # Docker directives for building chrome from https://github.com/anticrisis/docker-chromium-builder
-
+ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y \
     build-essential \
     curl \
