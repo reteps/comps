@@ -33,22 +33,21 @@ ENV PATH=/depot_tools:$PATH
 
 # needed for install-build-deps.sh
 RUN \
-    apt-get install -y python3
+    apt-get install -y python3 sudo wget file default-jdk
 
-RUN \
-    curl -s https://chromium.googlesource.com/chromium/src/+/master/build/install-build-deps.sh?format=TEXT | base64 -d \
-    | perl -pe 's/apt-get install \$\{do_quietly-}/DEBIAN_FRONTEND=noninteractive apt-get install -y/' \
-    | bash -e -s - \
-    --no-prompt \
-    --no-chromeos-fonts \
-    --no-arm \
-    --no-syms \
-    --no-nacl \
-    --no-backwards-compatible
-
-# needed to build mojo
-RUN \
-    apt-get install -y default-jdk
+COPY install-build-deps.py /install-build-deps.py
+# wget https://raw.githubusercontent.com/chromium/chromium/refs/heads/main/build/install-build-deps.py -O /install-build-deps.py && \
+RUN python3 /install-build-deps.py --no-prompt --no-chromeos-fonts --no-arm --no-syms --no-nacl --no-backwards-compatible
+# RUN \
+#     curl -s https://chromium.googlesource.com/chromium/src/+/main/build/install-build-deps.sh?format=TEXT | base64 -d \
+#     | perl -pe 's/apt-get install \$\{do_quietly-}/DEBIAN_FRONTEND=noninteractive apt-get install -y/' \
+#     | bash -e -s - \
+#     --no-prompt \
+#     --no-chromeos-fonts \
+#     --no-arm \
+#     --no-syms \
+#     --no-nacl \
+#     --no-backwards-compatible
 
 RUN \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
