@@ -1,6 +1,14 @@
 # quic-migrate
 Exploring intentional connection migration over QUIC
 
+#### Note from March 2025
+
+Patch no longer needed
+Inside `wg_client` container, run:
+```
+./client.sh
+```
+
 #### Note from June 2022
 Note that this demo was developed largely in 2019-2020. At that point in time, no QUIC client libraries supported automatic connection migration; however, Chromium's QUIC library had connection migration support, even if the toy server and client did not support automatic connection migration. The reason this demo is very involved is because it involves building a patch into Chromium's toy client and server to support (theoretically optimal) automatic connection migration. This is adapted from patches from prior work in MIMIQ, which is linked below as well.
 
