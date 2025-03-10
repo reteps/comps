@@ -103,7 +103,9 @@ services:
 
   server:
     container_name: server
-    build: ./chromium-quic
+    build:
+      context: ./chromium-quic
+      network: host
     volumes:
       - ${CHROMIUM_SRC_DIR:?Must set chromium source directory}:/src
     networks:

@@ -1,19 +1,13 @@
-FROM ubuntu:xenial
+FROM ubuntu:jammy
 
 # Docker directives for building chrome from https://github.com/anticrisis/docker-chromium-builder
 
-RUN \
-    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
-    && apt-get update -y
-
-RUN \
-    apt-get install -y \
+RUN apt-get update && apt-get install -y \
     build-essential \
     curl \
     git \
     lsb-base \
-    lsb-release \
-    sudo
+    lsb-release
 
 RUN \
     cd / \
@@ -39,7 +33,7 @@ ENV PATH=/depot_tools:$PATH
 
 # needed for install-build-deps.sh
 RUN \
-    apt-get install -y python
+    apt-get install -y python3
 
 RUN \
     curl -s https://chromium.googlesource.com/chromium/src/+/master/build/install-build-deps.sh?format=TEXT | base64 -d \
