@@ -9,35 +9,39 @@ RUN apt-get update && apt-get install -y \
     lsb-base \
     lsb-release
 
-RUN \
-    cd / \
-    && git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
+    RUN apt-get update && apt-get install -y wget git curl iputils-ping tcpdump && wget https://go.dev/dl/go1.24.2.linux-amd64.tar.gz && rm -rf /usr/local/go && tar -C /usr/local -xzf go1.24.2.linux-amd64.tar.gz && echo "export PATH=$PATH:/usr/local/go/bin" >> ~/.bashrc
 
-RUN \
-    cd / \
-    && git clone https://github.com/chromedp/docker-headless-shell.git
+ENV PATH="/usr/local/go/bin:${PATH}"
 
-RUN \
-    echo Etc/UTC > /etc/timezone
+# RUN \
+#     cd / \
+#     && git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
 
-RUN \
-    echo tzdata tzdata/Areas select Etc | debconf-set-selections
+# RUN \
+#     cd / \
+#     && git clone https://github.com/chromedp/docker-headless-shell.git
 
-RUN \
-    echo tzdata tzdata/Zones/Etc UTC | debconf-set-selections
+# RUN \
+#     echo Etc/UTC > /etc/timezone
 
-RUN \
-    echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | debconf-set-selections
+# RUN \
+#     echo tzdata tzdata/Areas select Etc | debconf-set-selections
 
-ENV PATH=/depot_tools:$PATH
+# RUN \
+#     echo tzdata tzdata/Zones/Etc UTC | debconf-set-selections
+
+# RUN \
+#     echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | debconf-set-selections
+
+# ENV PATH=/depot_tools:$PATH
 
 # needed for install-build-deps.sh
 RUN \
     apt-get install -y python3 sudo wget file default-jdk
 
-COPY install-build-deps.py /install-build-deps.py
+# COPY install-build-deps.py /install-build-deps.py
 # wget https://raw.githubusercontent.com/chromium/chromium/refs/heads/main/build/install-build-deps.py -O /install-build-deps.py && \
-RUN python3 /install-build-deps.py --no-prompt --no-chromeos-fonts --no-arm --no-syms --no-nacl --no-backwards-compatible
+# RUN python3 /install-build-deps.py --no-prompt --no-chromeos-fonts --no-arm --no-syms --no-nacl --no-backwards-compatible
 # RUN \
 #     curl -s https://chromium.googlesource.com/chromium/src/+/main/build/install-build-deps.sh?format=TEXT | base64 -d \
 #     | perl -pe 's/apt-get install \$\{do_quietly-}/DEBIAN_FRONTEND=noninteractive apt-get install -y/' \
@@ -49,8 +53,8 @@ RUN python3 /install-build-deps.py --no-prompt --no-chromeos-fonts --no-arm --no
 #     --no-nacl \
 #     --no-backwards-compatible
 
-RUN \
-    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+# RUN \
+#     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 WORKDIR /app
 
