@@ -60,4 +60,4 @@ COPY tls /site/tls
 COPY example.com /site/example.com
 
 
-CMD ["/app/server.sh"]
+# CMD ["/app/server.sh"]

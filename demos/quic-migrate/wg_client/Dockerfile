@@ -14,10 +14,7 @@ FROM --platform=linux/amd64 frankpetrilli/boringtun:latest
 WORKDIR /etc/wg_client/
 COPY --from=0 /client/src/run .
 
-RUN apt-get update && apt-get install -y wget git curl iputils-ping && wget https://go.dev/dl/go1.24.2.linux-amd64.tar.gz
-RUN rm -rf /usr/local/go && tar -C /usr/local -xzf go1.24.2.linux-amd64.tar.gz
-RUN wget https://github.com/reteps/cs538-project/archive/refs/heads/main.zip && unzip main.zip && rm main.zip
-RUN echo "export PATH=$PATH:/usr/local/go/bin" >> ~/.bashrc
+RUN apt-get update && apt-get install -y wget git curl iputils-ping tcpdump && wget https://go.dev/dl/go1.24.2.linux-amd64.tar.gz && rm -rf /usr/local/go && tar -C /usr/local -xzf go1.24.2.linux-amd64.tar.gz && echo "export PATH=$PATH:/usr/local/go/bin" >> ~/.bashrc
 ENV PATH="/usr/local/go/bin:${PATH}"
 
 WORKDIR /etc/wireguard/
