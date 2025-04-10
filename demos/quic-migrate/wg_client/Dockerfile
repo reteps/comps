@@ -1,4 +1,4 @@
-FROM golang:1.15.2-alpine3.12
+FROM --platform=linux/amd64 golang:1.15.2-alpine3.12
 WORKDIR /client
 RUN apk add git make build-base
 ENV CGO_ENABLED=1 \
@@ -10,12 +10,13 @@ ADD src /client/src
 WORKDIR /client/src
 RUN go build -o run
 
-FROM frankpetrilli/boringtun:latest
+FROM --platform=linux/amd64 frankpetrilli/boringtun:latest
 WORKDIR /etc/wg_client/
 COPY --from=0 /client/src/run .
 
-RUN wget https://go.dev/dl/go1.24.2.linux-arm64.tar.gz
+RUN apt-get update && apt-get install -y wget git curl iputils-ping && wget https://go.dev/dl/go1.24.2.linux-amd64.tar.gz
 RUN rm -rf /usr/local/go && tar -C /usr/local -xzf go1.24.2.linux-amd64.tar.gz
+RUN wget https://github.com/reteps/cs538-project/archive/refs/heads/main.zip && unzip main.zip && rm main.zip
 RUN echo "export PATH=$PATH:/usr/local/go/bin" >> ~/.bashrc
 ENV PATH="/usr/local/go/bin:${PATH}"
 

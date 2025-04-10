@@ -75,6 +75,7 @@ services:
     devices:
       - "/dev/net/tun:/dev/net/tun"
     volumes:
+      - ~/.ssh/id_rsa:/root/.ssh/id_rsa
       - ./wg_client:/etc/wireguard/
       - ./chromium-quic:/app/
       - ${CHROMIUM_SRC_DIR:?Must set chromium source directory}:/src
